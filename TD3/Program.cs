@@ -43,6 +43,7 @@ namespace TD3
             //NuancesDeGris(fileName, "./Gris1.bmp");
 
             Console.WriteLine("\nTerminé !");
+            Console.Write("Test GitHub");
             Console.ReadKey(true);
         }
     }
