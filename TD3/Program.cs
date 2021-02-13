@@ -7,7 +7,7 @@ using System.IO;
 
 namespace TD3
 {
-    class Program //coucou
+    class Program
     {
         static void NuancesDeGris(string entree, string sortie)
         {
