@@ -7,11 +7,11 @@ using System.IO;
 
 namespace TD3
 {
-    class Program //coucou
+    class Program
     {
         static void NuancesDeGris(string entree, string sortie)
         {
-            MyImage image = new MyImage(entree); //Thibaut le sang
+            MyImage image = new MyImage(entree);
             Console.WriteLine(image.toString());
             image.NuancesDeGris();
             /*for (int x = 0; x < image.Pixels.GetLength(0); x++)
