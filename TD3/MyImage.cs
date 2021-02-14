@@ -42,9 +42,9 @@ namespace TD3
                     pixels[l, c] = nouveauPixel;
                     indice += 3;
                 }
-                /*if (valeursInutiles != 0)
+                if (valeursInutiles != 0)
                 {
-                    if (valeursInutiles == 1)
+                    if (valeursInutiles == 3)
                     {
                         indice++;
                     }
@@ -52,11 +52,11 @@ namespace TD3
                     {
                         indice += 2;
                     }
-                    if (valeursInutiles == 3)
+                    if (valeursInutiles == 1)
                     {
                         indice += 3;
                     }
-                }*/
+                }
             }
         }
 
@@ -83,7 +83,7 @@ namespace TD3
             byte[] tailleHeader = Convertir_Int_To_Endian(tailleOffset - 14, 4);
             for (int i = 14; i < 18; i++)
             {
-                returned[i] = tailleOffsetEndian[i - 14];
+                returned[i] = tailleHeader[i - 14];
             }
             byte[] largeurImageEndian = Convertir_Int_To_Endian(largeurImage, 4);
             for (int i = 18; i < 22; i++)
@@ -118,9 +118,9 @@ namespace TD3
                     returned[cpt + 2] = Convert.ToByte(pixels[i, j].Red);
                     cpt += 3;
                 }
-                /*if (valeursInutiles != 0)
+                if (valeursInutiles != 0)
                 {
-                    if (valeursInutiles == 1)
+                    if (valeursInutiles == 3)
                     {
                         cpt++;
                     }
@@ -128,14 +128,12 @@ namespace TD3
                     {
                         cpt += 2;
                     }
-                    if (valeursInutiles == 3)
+                    if (valeursInutiles == 1)
                     {
                         cpt += 3;
                     }
-                }*/
+                }
             }
-
-            File.WriteAllBytes(file, returned);
         }
 
         public string toString()
@@ -143,7 +141,7 @@ namespace TD3
             string returned = "";
             returned += "Type de l'image : " + typeImage + "\n";
             returned += "Taille de l'image : " + Convert.ToString(tailleDuFichier) + "\n";
-            returned += "Taille du header d'info : " + Convert.ToString(tailleOffset) + "\n";
+            returned += "Taille de l'offset : " + Convert.ToString(tailleOffset) + "\n";
             returned += "Largeur de l'image : " + Convert.ToString(largeurImage) + "\n";
             returned += "Hauteur de l'image : " + Convert.ToString(hauteurImage) + "\n";
             returned += "Nomvre de bytes par couleur : " + Convert.ToString(nombreBytesParCouleur) + "\n";
@@ -180,7 +178,7 @@ namespace TD3
             int returned = 0;
             for (int x = 0; x < nombreOctets; x++)
             {
-                returned += Convert.ToInt32(image[indiceDepart + x] * Math.Pow(256, x));
+                returned += Convert.ToInt32(image[indiceDepart + x] * (int)Math.Pow(256, x));
             }
             return returned;
         }
@@ -190,8 +188,9 @@ namespace TD3
             byte[] returned = new byte[nombreOctets];
             for (int x = nombreOctets - 1; x >= 0; x--)
             {
-                returned[x] = Convert.ToByte(val / Math.Pow(256, x));
-                val = Convert.ToInt32(val % Math.Pow(256, x));
+                int puissance = (int)Math.Pow(256, x);
+                returned[x] = Convert.ToByte(val / puissance);
+                val = (int)(val % puissance);
             }
             return returned;
         }
