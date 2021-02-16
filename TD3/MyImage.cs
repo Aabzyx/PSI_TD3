@@ -9,6 +9,7 @@ namespace TD3
 {
     class MyImage
     {
+        //Variables de classe
         private string typeImage;
         private int tailleDuFichier;
         private int tailleOffset;
@@ -17,6 +18,12 @@ namespace TD3
         private int nombreBytesParCouleur;
         private Pixel[,] pixels;
 
+        /// <summary>
+        /// Constructeur de la classe, on récupère les informations essentielles de l'offset
+        /// et on les convertit en entier pour les stocker dans les variables de classe
+        /// Puis on créé une matrice de Pixels qu'on remplit à l'aide de la fonction du même nom
+        /// </summary>
+        /// <param name="myFile">Chemin du fichier à étudier</param>
         public MyImage(string myFile)
         {
             byte[] image = File.ReadAllBytes(myFile);
@@ -30,6 +37,16 @@ namespace TD3
             Remplir_pixels(pixels, image);
         }
 
+        /// <summary>
+        /// On va remplir de manière automatique la matrice de pixels en commençant
+        /// au bon indice (fin de l'offset), et en faisant attention à deux détails :
+        ///     - En bitmap, les pixels sont dans l'ordre BVR (ou BGR), il nous faut donc
+        /// les inverser pour rester dans l'ordre classique RVB lors de l'utilisation de la matrice
+        ///     - Si l'image a une largeur n'étant pas un multiple de 4, il y aura des bytes
+        /// non utilisés, qu'il faudra ne pas prendre en compte à l'import.
+        /// </summary>
+        /// <param name="pixels">Matrice à remplir</param>
+        /// <param name="image">Tableau de bytes à partir duquel on va remplir la matrice</param>
         public void Remplir_pixels(Pixel[,] pixels, byte[] image)
         {
             int indice = Convert.ToInt32(tailleOffset);
@@ -42,6 +59,8 @@ namespace TD3
                     pixels[l, c] = nouveauPixel;
                     indice += 3;
                 }
+                //Pour ignorer les bytes inutiles, on incrémentera seulement l'indice parcourant le tableau
+                //lorsque l'on atteindra la fin d'une ligne
                 if (valeursInutiles != 0)
                 {
                     if (valeursInutiles == 3)
@@ -60,11 +79,16 @@ namespace TD3
             }
         }
 
-        public Pixel[,] Pixels
-        {
-            get { return pixels; }
-        }
-
+        /// <summary>
+        /// La fonction est longue mais très simple dans son fonctionnement :
+        /// nous allons créer un tableau de bytes que nous remplirons avec les informations
+        /// décrivant l'image exportée selon les paramètres bitmap.
+        /// Puis nous ferons l'exact inverse de la fonction Remplir_pixels en remplissant
+        /// le tableau à partir de la matrice de Pixels, en faisant attention à replacer les
+        /// bytes inutiles.
+        /// Puis on exporte le tout grâce à la fonction WriteAllBytes
+        /// </summary>
+        /// <param name="file">Chemin et nom du fichier utilisé pour l'export</param>
         public void From_Image_To_File(string file)
         {
             byte[] returned = new byte[tailleDuFichier];
@@ -134,8 +158,10 @@ namespace TD3
                     }
                 }
             }
+            File.WriteAllBytes(file, returned);
         }
 
+        //Fonction retournant sous forme de string les informations essentielles contenues dans l'offset
         public string toString()
         {
             string returned = "";
@@ -148,6 +174,7 @@ namespace TD3
             return returned;
         }
 
+        //Fonction extrêmement basique, identique à celle utilisée depuis un an
         public string AffichageMatricePixel()
         {
             string returned = "";
@@ -162,6 +189,7 @@ namespace TD3
             return returned;
         }
 
+        //Ici, on vérifie que l'image est bien de type BM, et on return "inconnu" dans tous les autres cas
         private string TypeDImage(byte[] image)
         {
             string returned = "";
@@ -173,16 +201,34 @@ namespace TD3
             return returned;
         }
 
+        /// <summary>
+        /// On va récupérer chaque byte sur lequel l'entier est codé, multiplier ledit byte
+        /// à la puissance de 256 à laquelle il est associé, puis convertir cette valeur en int
+        /// et l'ajouter au résultat final
+        /// </summary>
+        /// <param name="image">Tableau de bytes obtenu avec le ReadAllBytes</param>
+        /// <param name="nombreOctets">Nombre d'octets sur lequel l'entier est codé</param>
+        /// <param name="indiceDepart">Indice du byte du tableau Image à partir duquel le nombre est codé</param>
+        /// <returns>Le même nombre mais entier</returns>
         public int Convertir_Endian_To_Int(byte[] image, int nombreOctets, int indiceDepart)
         {
             int returned = 0;
             for (int x = 0; x < nombreOctets; x++)
             {
+                //NE PAS OUBLIER LA CONVERSION DE LA PUISSANCE EN INT, cela a été source de nombreux problèmes
                 returned += Convert.ToInt32(image[indiceDepart + x] * (int)Math.Pow(256, x));
             }
             return returned;
         }
 
+        /// <summary>
+        /// Ici, on va diviser l'entier entré par chaque puissance de 256,
+        /// de la puissance 'nombreOctets -1' à 0, attribuer le quotient au byte correspondant
+        /// dans le tableau de bytes créé, et répéter l'opération avec le reste de la division
+        /// </summary>
+        /// <param name="val">Entier à convertir</param>
+        /// <param name="nombreOctets">Nombre d'octets sur lequel on code la valeur</param>
+        /// <returns>Le même nombre sous forme de tableau de bytes</returns>
         public byte[] Convertir_Int_To_Endian(int val, int nombreOctets)
         {
             byte[] returned = new byte[nombreOctets];
@@ -223,6 +269,11 @@ namespace TD3
             
         }
 
+        /// <summary>
+        /// Pour faire passer l'image en nuances de gris,
+        /// on applique simplement sur chaque couleur de chaque Pixel
+        /// la moyenne des valeurs des couleurs du Pixel en question
+        /// </summary>
         public void NuancesDeGris()
         {
             for(int x = 0; x < pixels.GetLength(0); x++)
@@ -232,6 +283,32 @@ namespace TD3
                     int rvbGRIS = (pixels[x, y].Red + pixels[x, y].Green + pixels[x, y].Blue) / 3;
                     Pixel newPixel = new Pixel(rvbGRIS, rvbGRIS, rvbGRIS);
                     pixels[x, y] = newPixel;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Très similaire à la fonction NuancesDeGris, mais ici on rendra le pixel noir uniquement
+        /// si la moyenne des trois couleurs est inférieure strictement à 128 (valeur médiane de 0-255)
+        /// et blanc si elle est supérieure à 128
+        /// </summary>
+        public void NoirEtBlanc()
+        {
+            for (int x = 0; x < pixels.GetLength(0); x++)
+            {
+                for (int y = 0; y < pixels.GetLength(1); y++)
+                {
+                    int moyenne = (pixels[x, y].Red + pixels[x, y].Green + pixels[x, y].Blue) / 3;
+                    if(moyenne < 128)
+                    {
+                        Pixel newPixel = new Pixel(0, 0, 0);
+                        pixels[x, y] = newPixel;
+                    }
+                    else
+                    {
+                        Pixel newPixel = new Pixel(255, 255, 255);
+                        pixels[x, y] = newPixel;
+                    }
                 }
             }
         }
