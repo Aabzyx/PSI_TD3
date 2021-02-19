@@ -263,27 +263,41 @@ namespace TD3
         {
             int new_largeur = Convert.ToInt32(Math.Round(coef*largeurImage(double)));
             int new_hauteur = Convert.ToInt32(Math.Round(coef*hauteurImage(double)));
+            int nbr_new_hauteur = new_largeur - largeurImage;
+            int nbr_new_largeur = new_hauteur - hauteurImage;
             int doublage_hauteur;
             int doublage_largeur;
-            if(new_largeur == largeurImage)
+            if(nbr_new_hauteur == 0)
             {
-                doublage_largeur = -1;    
+                doublage_hauteur = 0;
             }
             else
             {
-                doublage_largeur = Math.Floor(new_largeur/(new_largeur - largeurImage));
+                doublage_hauteur = Math.Floor(new_hauteur/nbr_new_hauteur);
             }
-            if(new_hauteur == hauteurImage)
+            if(nbr_new_largeur == 0)
             {
-                doublage_hauteur = -1;    
+                doublage_largeur = 0;    
             }
             else
             {
-                doublage_hauteur = Math.Floor(new_hauteur/(new_hauteur - hauteurImage));    
+                doublage_largeur = Math.Floor(new_largeur/nbr_new_largeur);    
             }
-            Pixel[,] newimage = new Pixel[new_hauteur, new_largeur];
-            hauteurImage = new_hauteur;
+            Pixel[,] newimage = new Pixel[new_largeur,new_hauteur];
+            int indice_largeur = -1;
+            int indice_hauteur = -1;
+            for(int l = 0; l < newimage.GetLength(0); l++)
+            {
+                indice_largeur++;
+                for(int c = 0; c < newimage.GetLength(1);c++)
+                {
+                    indice_hauteur++;
+                    newimage[l,c] = pixels[indice_largeur,indice_hauteur];
+                }
+            }
             largeurImage = new_largeur;
+            hauteurImage = new_hauteur;
+            pixels = newimage;
         }
 
         public void Retrecir(double coef)
