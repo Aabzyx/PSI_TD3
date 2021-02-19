@@ -261,38 +261,93 @@ namespace TD3
 
         public void Agrandir(double coef)
         {
-            int new_largeur = Convert.ToInt32(Math.Round(coef*largeurImage(double)));
-            int new_hauteur = Convert.ToInt32(Math.Round(coef*hauteurImage(double)));
+            int new_largeur = Convert.ToInt32(Math.Round(coef*(double)largeurImage));
+            int new_hauteur = Convert.ToInt32(Math.Round(coef*(double)hauteurImage));
             int nbr_new_hauteur = new_largeur - largeurImage;
             int nbr_new_largeur = new_hauteur - hauteurImage;
-            int doublage_hauteur;
-            int doublage_largeur;
-            if(nbr_new_hauteur == 0)
+            int[] largeur = new int[largeurImage];
+            int[] hauteur = new int[hauteurImage];
+            Random random = new Random();
+            if(coef < 2)
             {
-                doublage_hauteur = 0;
+                int compteur = 0;
+                while(compteur != nbr_new_hauteur)
+                {
+                    int index = random.Next(0,hauteur.Length);
+                    if(hauteur[index] == 0)
+                    {
+                        hauteur[index]++;
+                        compteur++;
+                    }
+                }
+                compteur = 0;
+                while(compteur != nbr_new_largeur)
+                {
+                    int index = random.Next(0,largeur.Length);
+                    if(largeur[index] == 0)
+                    {
+                        hauteur[index]++;
+                        compteur++;
+                    }
+                }
             }
             else
             {
-                doublage_hauteur = Math.Floor(new_hauteur/nbr_new_hauteur);
-            }
-            if(nbr_new_largeur == 0)
-            {
-                doublage_largeur = 0;    
-            }
-            else
-            {
-                doublage_largeur = Math.Floor(new_largeur/nbr_new_largeur);    
+                int compteur = 0;
+                for(int i = 0; i < hauteur.Length; i++)
+                {
+                    hauteur[i] =  Math.Floor(coef) - 1;   
+                }
+                int case_en_plus = new_hauteur - Convert.ToInt32(Math.Floor(coef*(double)hauteurImage));
+                while(compteur != case_en_plus)
+                {
+                    int index = random.Next(0,hauteur.Length);
+                    if(hauteur[index] == Math.Floor(coef) - 1)
+                    {
+                        hauteur[index]++;
+                        compteur++;
+                    }
+                }
+                compteur = 0;
+                for(int i = 0 ; i < largeur.Length; i++)
+                {
+                    largeur[i] = Math.Floor(coef) - 1;    
+                }
+                case_en_plus = new_largeur - Convert.ToInt32(Math.Floor(coef*(double)largeurImage));
+                while(compteur != case_en_plus)
+                {
+                    int index = random.Next(0, largeur.Length);
+                    if(largeur[index] == Math.Floor(coef) - 1)
+                    {
+                        largeur[index]++;
+                        compteur++;
+                    }
+                }
             }
             Pixel[,] newimage = new Pixel[new_largeur,new_hauteur];
-            int indice_largeur = -1;
-            int indice_hauteur = -1;
-            for(int l = 0; l < newimage.GetLength(0); l++)
+            int indice_hauteur = 0;
+            int indice_largeur = 0;
+            Pixel temp = null;
+            for(int l = 0; l < pixels.GetLength(0); l++)
             {
-                indice_largeur++;
-                for(int c = 0; c < newimage.GetLength(1);c++)
+                for(int c = 0; c < pixels.GetLength(1); c++)
                 {
-                    indice_hauteur++;
-                    newimage[l,c] = pixels[indice_largeur,indice_hauteur];
+                    if(hauteur[l] > 0 && largeur[c] > 0)
+                    {
+                            
+                    }
+                    else if(hauteur[l] > && largeur[c] == 0)
+                    {
+                            
+                    }
+                    else if(hauteur[l] == 0 && largeur[c] > 0)
+                    {
+                    
+                    }
+                    else if(hauteur[l] == 0 && largeur[c] == 0)
+                    {
+                            
+                    }
                 }
             }
             largeurImage = new_largeur;
