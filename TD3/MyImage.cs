@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace TD3 //ui
+namespace TD3
 {
     class MyImage
     {
@@ -259,12 +259,12 @@ namespace TD3 //ui
             pixels =  newImage;
         }
 
-        public void Agrandir(int coef)
+        public void Agrandir(double coef)
         {
             
         }
 
-        public void Retrecir(int coef)
+        public void Retrecir(double coef)
         {
             
         }
