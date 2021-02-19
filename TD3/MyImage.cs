@@ -261,7 +261,29 @@ namespace TD3
 
         public void Agrandir(double coef)
         {
-            
+            int new_largeur = Convert.ToInt32(Math.Round(coef*largeurImage(double)));
+            int new_hauteur = Convert.ToInt32(Math.Round(coef*hauteurImage(double)));
+            int doublage_hauteur;
+            int doublage_largeur;
+            if(new_largeur == largeurImage)
+            {
+                doublage_largeur = -1;    
+            }
+            else
+            {
+                doublage_largeur = Math.Floor(new_largeur/(new_largeur - largeurImage));
+            }
+            if(new_hauteur == hauteurImage)
+            {
+                doublage_hauteur = -1;    
+            }
+            else
+            {
+                doublage_hauteur = Math.Floor(new_hauteur/(new_hauteur - hauteurImage));    
+            }
+            Pixel[,] newimage = new Pixel[new_hauteur, new_largeur];
+            hauteurImage = new_hauteur;
+            largeurImage = new_largeur;
         }
 
         public void Retrecir(double coef)
