@@ -46,12 +46,10 @@ namespace TD3
 
         static void Main(string[] args)
         {
-            //NuancesDeGris("./coco.bmp", "./Gris.bmp");
-            //NoirEtBlanc("./coco.bmp", "./Binaire.bmp");
-            //Agrandir("./coco.bmp","./zoom.bmp");
-            int a = 3;
-            a = Math.Floor(a);
-            Console.WriteLine("ui");
+            NuancesDeGris("./coco.bmp", "./Gris.bmp");
+            NoirEtBlanc("./coco.bmp", "./Binaire.bmp");
+            Agrandir("./coco.bmp","./zoom.bmp");
+
             Console.WriteLine("\nTerminé !");
             Console.ReadKey(true);
         }
