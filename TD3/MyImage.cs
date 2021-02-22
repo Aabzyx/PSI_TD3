@@ -296,7 +296,7 @@ namespace TD3
                 int compteur = 0;
                 for(int i = 0; i < hauteur.Length; i++)
                 {
-                    hauteur[i] =  Math.Floor(coef) - 1;   
+                    hauteur[i] =  Convert.ToInt32(Math.Floor(coef)) - 1;   
                 }
                 int case_en_plus = new_hauteur - Convert.ToInt32(Math.Floor(coef*(double)hauteurImage));
                 while(compteur != case_en_plus)
@@ -311,7 +311,7 @@ namespace TD3
                 compteur = 0;
                 for(int i = 0 ; i < largeur.Length; i++)
                 {
-                    largeur[i] = Math.Floor(coef) - 1;    
+                    largeur[i] = Convert.ToInt32(Math.Floor(coef)) - 1;    
                 }
                 case_en_plus = new_largeur - Convert.ToInt32(Math.Floor(coef*(double)largeurImage));
                 while(compteur != case_en_plus)
@@ -336,7 +336,7 @@ namespace TD3
                     {
                             
                     }
-                    else if(hauteur[l] > && largeur[c] == 0)
+                    else if(hauteur[l] > 0 && largeur[c] == 0)
                     {
                             
                     }
