@@ -7,7 +7,7 @@ using System.IO;
 
 namespace TD3
 {
-    class MyImage
+    class MyImage //test
     {
         //Variables de classe
         private string typeImage;
