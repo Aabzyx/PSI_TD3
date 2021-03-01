@@ -31,10 +31,24 @@ namespace TD3
             image.From_Image_To_File(sortie);
         }
 
+        static void Agrandir(string entree, string sortie)
+        {
+            Console.WriteLine("Veuillez saisir un coefficient de zoom de minimum 1");
+            double coef = 0;
+            while(coef < 1)
+            {
+                coef = Convert.ToDouble(Console.ReadLine());    
+            }
+            MyImage image = new MyImage(entree);
+            image.Agrandir(coef);
+            image.From_Image_To_File(sortie);
+        }
+
         static void Main(string[] args)
         {
             NuancesDeGris("./coco.bmp", "./Gris.bmp");
             NoirEtBlanc("./coco.bmp", "./Binaire.bmp");
+            Agrandir("./coco.bmp","./zoom.bmp");
 
             Console.WriteLine("\nTerminé !");
             Console.ReadKey(true);

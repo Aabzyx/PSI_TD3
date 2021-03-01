@@ -7,7 +7,7 @@ using System.IO;
 
 namespace TD3
 {
-    class MyImage
+    class MyImage //test
     {
         //Variables de classe
         private string typeImage;
@@ -259,12 +259,103 @@ namespace TD3
             pixels =  newImage;
         }
 
-        public void Agrandir(int coef)
+        public void Agrandir(double coef)
         {
-            
+            int new_largeur = Convert.ToInt32(Math.Round(coef*(double)largeurImage));
+            int new_hauteur = Convert.ToInt32(Math.Round(coef*(double)hauteurImage));
+            int nbr_new_hauteur = new_largeur - largeurImage;
+            int nbr_new_largeur = new_hauteur - hauteurImage;
+            int[] largeur = new int[largeurImage];
+            int[] hauteur = new int[hauteurImage];
+            Random random = new Random();
+            if(coef < 2)
+            {
+                int compteur = 0;
+                while(compteur != nbr_new_hauteur)
+                {
+                    int index = random.Next(0,hauteur.Length);
+                    if(hauteur[index] == 0)
+                    {
+                        hauteur[index]++;
+                        compteur++;
+                    }
+                }
+                compteur = 0;
+                while(compteur != nbr_new_largeur)
+                {
+                    int index = random.Next(0,largeur.Length);
+                    if(largeur[index] == 0)
+                    {
+                        hauteur[index]++;
+                        compteur++;
+                    }
+                }
+            }
+            else
+            {
+                int compteur = 0;
+                for(int i = 0; i < hauteur.Length; i++)
+                {
+                    hauteur[i] =  Convert.ToInt32(Math.Floor(coef)) - 1;   
+                }
+                int case_en_plus = new_hauteur - Convert.ToInt32(Math.Floor(coef*(double)hauteurImage));
+                while(compteur != case_en_plus)
+                {
+                    int index = random.Next(0,hauteur.Length);
+                    if(hauteur[index] == Math.Floor(coef) - 1)
+                    {
+                        hauteur[index]++;
+                        compteur++;
+                    }
+                }
+                compteur = 0;
+                for(int i = 0 ; i < largeur.Length; i++)
+                {
+                    largeur[i] = Convert.ToInt32(Math.Floor(coef)) - 1;    
+                }
+                case_en_plus = new_largeur - Convert.ToInt32(Math.Floor(coef*(double)largeurImage));
+                while(compteur != case_en_plus)
+                {
+                    int index = random.Next(0, largeur.Length);
+                    if(largeur[index] == Math.Floor(coef) - 1)
+                    {
+                        largeur[index]++;
+                        compteur++;
+                    }
+                }
+            }
+            Pixel[,] newimage = new Pixel[new_largeur,new_hauteur];
+            int indice_hauteur = 0;
+            int indice_largeur = 0;
+            Pixel temp = null;
+            for(int l = 0; l < pixels.GetLength(0); l++)
+            {
+                for(int c = 0; c < pixels.GetLength(1); c++)
+                {
+                    if(hauteur[l] > 0 && largeur[c] > 0)
+                    {
+                            
+                    }
+                    else if(hauteur[l] > 0 && largeur[c] == 0)
+                    {
+                            
+                    }
+                    else if(hauteur[l] == 0 && largeur[c] > 0)
+                    {
+                    
+                    }
+                    else if(hauteur[l] == 0 && largeur[c] == 0)
+                    {
+                            
+                    }
+                }
+            }
+            largeurImage = new_largeur;
+            hauteurImage = new_hauteur;
+            pixels = newimage;
         }
 
-        public void Retrecir(int coef)
+        public void Retrecir(double coef)
         {
             
         }

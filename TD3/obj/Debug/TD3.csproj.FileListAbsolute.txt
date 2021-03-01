@@ -12,3 +12,7 @@ D:\OneDrive - De Vinci\GitHub\PSI_TD3\TD3\obj\Debug\TD3.csprojAssemblyReference.
 D:\OneDrive - De Vinci\GitHub\PSI_TD3\TD3\obj\Debug\TD3.csproj.CoreCompileInputs.cache
 D:\OneDrive - De Vinci\GitHub\PSI_TD3\TD3\obj\Debug\TD3.exe
 D:\OneDrive - De Vinci\GitHub\PSI_TD3\TD3\obj\Debug\TD3.pdb
+D:\Git\PSI_TD3\TD3\obj\Debug\TD3.csprojAssemblyReference.cache
+D:\Git\PSI_TD3\TD3\obj\Debug\TD3.csproj.CoreCompileInputs.cache
+D:\Git\PSI_TD3\TD3\obj\Debug\TD3.exe
+D:\Git\PSI_TD3\TD3\obj\Debug\TD3.pdb
