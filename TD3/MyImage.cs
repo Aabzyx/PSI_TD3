@@ -415,7 +415,25 @@ namespace TD3
             }
             largeurImage = new_largeur;
             hauteurImage = new_hauteur;
-            tailleDuFichier = new_largeur * new_hauteur * 3 + tailleOffset;
+            int valeursInutiles = largeurImage % 4;
+            int ajout = 0;
+            if (valeursInutiles != 0)
+            {
+                if (valeursInutiles == 3)
+                {
+                    cpt++;
+                }
+                if (valeursInutiles == 2)
+                {
+                    cpt += 2;
+                }
+                if (valeursInutiles == 1)
+                {
+                    cpt += 3;
+                }
+            }
+            tailleDuFichier = new_largeur * new_hauteur * 3 + ajout*new_hauteur + tailleOffset;
+            largeurImage = new_largeur + ajout;
             pixels = newimage;
         }
 
