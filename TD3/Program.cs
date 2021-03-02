@@ -35,9 +35,9 @@ namespace TD3
         {
             Console.WriteLine("Veuillez saisir un coefficient de zoom de minimum supérieur strict à 1");
             double coef = 0;
-            while(coef < 1)
+            while (coef < 1)
             {
-                coef = Convert.ToDouble(Console.ReadLine());    
+                coef = Convert.ToDouble(Console.ReadLine());
             }
             MyImage image = new MyImage(entree);
             image.Agrandir(coef);
@@ -48,7 +48,7 @@ namespace TD3
         {
             Console.WriteLine("Veuillez saisir un coefficient de retrecissement compris entre 0 et 1 exclut");
             double coef = -1;
-            while(coef <= 0 || coef >= 1)
+            while (coef <= 0 || coef >= 1)
             {
                 coef = Convert.ToDouble(Console.ReadLine());
             }
@@ -70,7 +70,7 @@ namespace TD3
         {
             //NuancesDeGris("./coco.bmp", "./Gris.bmp");
             //NoirEtBlanc("./coco.bmp", "./Binaire.bmp");
-            Agrandir("./coco.bmp","./zoom.bmp");
+            //Agrandir("./Test001.bmp","./zoom.bmp");
             //Retrecir("./coco.bmp", "./zoom.bmp");
             //Rotate("./coco.bmp", "./GROS270.bmp");
 

@@ -240,15 +240,15 @@ namespace TD3
             }
             return returned;
         }
-        
+
         public void RotateRemarquable(int angle)
         {
-            if(angle == 180)
+            if (angle == 180)
             {
                 Pixel[,] nouvelleMatrice = new Pixel[hauteurImage, largeurImage];
-                for(int x = 0; x < hauteurImage; x++)
+                for (int x = 0; x < hauteurImage; x++)
                 {
-                    for(int y = 0; y < largeurImage; y++)
+                    for (int y = 0; y < largeurImage; y++)
                     {
                         nouvelleMatrice[x, y] = pixels[hauteurImage - 1 - x, largeurImage - 1 - y];
                     }
@@ -256,10 +256,10 @@ namespace TD3
                 pixels = nouvelleMatrice;
 
             }
-            else if(angle == 270 || angle == 90)
+            else if (angle == 270 || angle == 90)
             {
                 Pixel[,] nouvelleMatrice = new Pixel[largeurImage, hauteurImage];
-                if(angle == 90)
+                if (angle == 90)
                 {
                     for (int x = 0; x < largeurImage; x++)
                     {
@@ -294,15 +294,15 @@ namespace TD3
 
         public void Miroir()
         {
-            Pixel[,] newImage = new Pixel[largeurImage,  hauteurImage];
-            for(int l = 0; l < pixels.GetLength(0);l++)
+            Pixel[,] newImage = new Pixel[largeurImage, hauteurImage];
+            for (int l = 0; l < pixels.GetLength(0); l++)
             {
-                for(int c = 0; c < pixels.GetLength(1);c++)
+                for (int c = 0; c < pixels.GetLength(1); c++)
                 {
-                    newImage[l,  c] = pixels[l, largeurImage - c - 1];
+                    newImage[l, c] = pixels[l, largeurImage - c - 1];
                 }
             }
-            pixels =  newImage;
+            pixels = newImage;
         }
 
         public void Agrandir(double coef)
@@ -410,11 +410,12 @@ namespace TD3
                         indice_largeur++;
                     }
                 }
-                indice_hauteur += hauteur[l];
+                indice_hauteur += hauteur[l] + 1;
                 indice_largeur = 0;
             }
             largeurImage = new_largeur;
             hauteurImage = new_hauteur;
+            tailleDuFichier = new_largeur * new_hauteur * 3 + tailleOffset;
             pixels = newimage;
         }
 
@@ -466,6 +467,7 @@ namespace TD3
             }
             largeurImage = new_largeur;
             hauteurImage = new_hauteur;
+            tailleDuFichier = new_hauteur * new_largeur * 3 + tailleOffset;
             pixels = newimage;
         }
 
@@ -476,9 +478,9 @@ namespace TD3
         /// </summary>
         public void NuancesDeGris()
         {
-            for(int x = 0; x < pixels.GetLength(0); x++)
+            for (int x = 0; x < pixels.GetLength(0); x++)
             {
-                for(int y = 0; y < pixels.GetLength(1); y++)
+                for (int y = 0; y < pixels.GetLength(1); y++)
                 {
                     int rvbGRIS = (pixels[x, y].Red + pixels[x, y].Green + pixels[x, y].Blue) / 3;
                     Pixel newPixel = new Pixel(rvbGRIS, rvbGRIS, rvbGRIS);
@@ -499,7 +501,7 @@ namespace TD3
                 for (int y = 0; y < pixels.GetLength(1); y++)
                 {
                     int moyenne = (pixels[x, y].Red + pixels[x, y].Green + pixels[x, y].Blue) / 3;
-                    if(moyenne < 128)
+                    if (moyenne < 128)
                     {
                         Pixel newPixel = new Pixel(0, 0, 0);
                         pixels[x, y] = newPixel;
