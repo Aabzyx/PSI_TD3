@@ -57,12 +57,22 @@ namespace TD3
             image.From_Image_To_File(sortie);
         }
 
+        static void Rotate(string entree, string sortie)
+        {
+            Console.Write("Veuillez saisir un angle de rotation remarquable : ");
+            int angle = Convert.ToInt32(Console.ReadLine());
+            MyImage image = new MyImage(entree);
+            image.RotateRemarquable(angle);
+            image.From_Image_To_File(sortie);
+        }
+
         static void Main(string[] args)
         {
             //NuancesDeGris("./coco.bmp", "./Gris.bmp");
             //NoirEtBlanc("./coco.bmp", "./Binaire.bmp");
             //Agrandir("./coco.bmp","./zoom.bmp");
-            Retrecir("./coco.bmp", "./zoom.bmp");
+            //Retrecir("./coco.bmp", "./zoom.bmp");
+            Rotate("./coco.bmp", "./GROS270.bmp");
 
             Console.WriteLine("\nTerminé !");
             Console.ReadKey(true);

@@ -241,6 +241,52 @@ namespace TD3
             return returned;
         }
         
+        public void RotateRemarquable(int angle)
+        {
+            if(angle == 180)
+            {
+                Pixel[,] nouvelleMatrice = new Pixel[hauteurImage, largeurImage];
+                for(int x = 0; x < hauteurImage; x++)
+                {
+                    for(int y = 0; y < largeurImage; y++)
+                    {
+                        nouvelleMatrice[x, y] = pixels[hauteurImage - 1 - x, largeurImage - 1 - y];
+                    }
+                }
+                pixels = nouvelleMatrice;
+
+            }
+            else if(angle == 270 || angle == 90)
+            {
+                Pixel[,] nouvelleMatrice = new Pixel[largeurImage, hauteurImage];
+                if(angle == 90)
+                {
+                    for (int x = 0; x < largeurImage; x++)
+                    {
+                        for (int y = 0; y < hauteurImage; y++)
+                        {
+                            nouvelleMatrice[x, y] = pixels[y, x];
+                        }
+                    }
+                }
+                else
+                {
+                    for (int x = 0; x < largeurImage; x++)
+                    {
+                        for (int y = 0; y < hauteurImage; y++)
+                        {
+                            nouvelleMatrice[x, y] = pixels[hauteurImage - 1 - y, x];
+                        }
+                    }
+                }
+                int retenue = hauteurImage;
+                hauteurImage = largeurImage;
+                largeurImage = retenue;
+                pixels = nouvelleMatrice;
+            }
+            else Console.WriteLine("pafétrodur");
+        }
+
         public void Rotate(int angle)
         {
 
