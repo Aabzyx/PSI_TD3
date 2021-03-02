@@ -448,8 +448,6 @@ namespace TD3
             Pixel[,] newimage = new Pixel[new_hauteur, new_largeur];
             int indice_hauteur = 0;
             int indice_largeur = 0;
-            Console.WriteLine("Hauteur " + test_hauteur);
-            Console.WriteLine("Largeur " + test_largeur);
             for (int l = 0; l < pixels.GetLength(0); l++)
             {
                 if (hauteur[l] == true)
