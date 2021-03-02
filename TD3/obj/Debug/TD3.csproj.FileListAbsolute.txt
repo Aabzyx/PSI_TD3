@@ -23,3 +23,10 @@ D:\ESILV\S4\Projet info\Aabzyx\PSI_TD3\TD3\obj\Debug\TD3.pdb
 D:\ESILV\S4\Projet info\Aabzyx\PSI_TD3\TD3\bin\Debug\TD3.exe.config
 D:\ESILV\S4\Projet info\Aabzyx\PSI_TD3\TD3\bin\Debug\TD3.exe
 D:\ESILV\S4\Projet info\Aabzyx\PSI_TD3\TD3\bin\Debug\TD3.pdb
+D:\ESILV\S4\Projet info\PSI_TD3\TD3\bin\Debug\TD3.exe.config
+D:\ESILV\S4\Projet info\PSI_TD3\TD3\bin\Debug\TD3.exe
+D:\ESILV\S4\Projet info\PSI_TD3\TD3\bin\Debug\TD3.pdb
+D:\ESILV\S4\Projet info\PSI_TD3\TD3\obj\Debug\TD3.csprojAssemblyReference.cache
+D:\ESILV\S4\Projet info\PSI_TD3\TD3\obj\Debug\TD3.csproj.CoreCompileInputs.cache
+D:\ESILV\S4\Projet info\PSI_TD3\TD3\obj\Debug\TD3.exe
+D:\ESILV\S4\Projet info\PSI_TD3\TD3\obj\Debug\TD3.pdb
