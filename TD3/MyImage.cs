@@ -261,30 +261,30 @@ namespace TD3
 
         public void Agrandir(double coef)
         {
-            int new_largeur = Convert.ToInt32(Math.Round(coef*(double)largeurImage));
-            int new_hauteur = Convert.ToInt32(Math.Round(coef*(double)hauteurImage));
+            int new_largeur = Convert.ToInt32(Math.Round(coef * (double)largeurImage));
+            int new_hauteur = Convert.ToInt32(Math.Round(coef * (double)hauteurImage));
             int nbr_new_hauteur = new_largeur - largeurImage;
             int nbr_new_largeur = new_hauteur - hauteurImage;
             int[] largeur = new int[largeurImage];
             int[] hauteur = new int[hauteurImage];
             Random random = new Random();
-            if(coef < 2)
+            if (coef < 2)
             {
                 int compteur = 0;
-                while(compteur != nbr_new_hauteur)
+                while (compteur != nbr_new_hauteur)
                 {
-                    int index = random.Next(0,hauteur.Length - 1);
-                    if(hauteur[index] == 0)
+                    int index = random.Next(0, hauteur.Length - 1);
+                    if (hauteur[index] == 0)
                     {
                         hauteur[index]++;
                         compteur++;
                     }
                 }
                 compteur = 0;
-                while(compteur != nbr_new_largeur)
+                while (compteur != nbr_new_largeur)
                 {
-                    int index = random.Next(0,largeur.Length - 1);
-                    if(largeur[index] == 0)
+                    int index = random.Next(0, largeur.Length - 1);
+                    if (largeur[index] == 0)
                     {
                         largeur[index]++;
                         compteur++;
@@ -294,46 +294,46 @@ namespace TD3
             else
             {
                 int compteur = 0;
-                for(int i = 0; i < hauteur.Length; i++)
+                for (int i = 0; i < hauteur.Length; i++)
                 {
-                    hauteur[i] =  Convert.ToInt32(Math.Floor(coef)) - 1;   
+                    hauteur[i] = Convert.ToInt32(Math.Floor(coef)) - 1;
                 }
-                int case_en_plus = new_hauteur - Convert.ToInt32(Math.Floor(coef*(double)hauteurImage));
-                while(compteur != case_en_plus)
+                int case_en_plus = new_hauteur - Convert.ToInt32(Math.Floor(coef * (double)hauteurImage));
+                while (compteur != case_en_plus)
                 {
-                    int index = random.Next(0,hauteur.Length - 1);
-                    if(hauteur[index] == Math.Floor(coef) - 1)
+                    int index = random.Next(0, hauteur.Length - 1);
+                    if (hauteur[index] == Math.Floor(coef) - 1)
                     {
                         hauteur[index]++;
                         compteur++;
                     }
                 }
                 compteur = 0;
-                for(int i = 0 ; i < largeur.Length; i++)
+                for (int i = 0; i < largeur.Length; i++)
                 {
-                    largeur[i] = Convert.ToInt32(Math.Floor(coef)) - 1;    
+                    largeur[i] = Convert.ToInt32(Math.Floor(coef)) - 1;
                 }
-                case_en_plus = new_largeur - Convert.ToInt32(Math.Floor(coef*(double)largeurImage));
-                while(compteur != case_en_plus)
+                case_en_plus = new_largeur - Convert.ToInt32(Math.Floor(coef * (double)largeurImage));
+                while (compteur != case_en_plus)
                 {
                     int index = random.Next(0, largeur.Length - 1);
-                    if(largeur[index] == Math.Floor(coef) - 1)
+                    if (largeur[index] == Math.Floor(coef) - 1)
                     {
                         largeur[index]++;
                         compteur++;
                     }
                 }
             }
-            Pixel[,] newimage = new Pixel[new_hauteur,new_largeur];
+            Pixel[,] newimage = new Pixel[new_hauteur, new_largeur];
             int indice_hauteur = 0;
             int indice_largeur = 0;
-            for(int l = 0; l < pixels.GetLength(0); l++)
+            for (int l = 0; l < pixels.GetLength(0); l++)
             {
-                for(int c = 0; c < pixels.GetLength(1); c++)
+                for (int c = 0; c < pixels.GetLength(1); c++)
                 {
-                    if(hauteur[l] > 0 && largeur[c] > 0)
+                    if (hauteur[l] > 0 && largeur[c] > 0)
                     {
-                        for(int i = 0; i <= largeur[c]; i++)
+                        for (int i = 0; i <= largeur[c]; i++)
                         {
                             for (int j = 0; j <= hauteur[l]; j++)
                             {
@@ -342,23 +342,23 @@ namespace TD3
                             indice_largeur++;
                         }
                     }
-                    else if(hauteur[l] > 0 && largeur[c] == 0)
+                    else if (hauteur[l] > 0 && largeur[c] == 0)
                     {
-                        for(int i = 0; i <= hauteur[l]; i++)
+                        for (int i = 0; i <= hauteur[l]; i++)
                         {
                             newimage[indice_hauteur + i, indice_largeur] = pixels[l, c];
                         }
                         indice_largeur++;
                     }
-                    else if(hauteur[l] == 0 && largeur[c] > 0)
+                    else if (hauteur[l] == 0 && largeur[c] > 0)
                     {
-                        for(int i = 0; i <= largeur[c]; i++)
+                        for (int i = 0; i <= largeur[c]; i++)
                         {
                             newimage[indice_hauteur, indice_largeur] = pixels[l, c];
                             indice_largeur++;
                         }
                     }
-                    else if(hauteur[l] == 0 && largeur[c] == 0)
+                    else if (hauteur[l] == 0 && largeur[c] == 0)
                     {
                         newimage[indice_hauteur, indice_largeur] = pixels[l, c];
                         indice_largeur++;
@@ -376,8 +376,8 @@ namespace TD3
         {
             int new_largeur = Convert.ToInt32(Math.Round(coef * (double)largeurImage));
             int new_hauteur = Convert.ToInt32(Math.Round(coef * (double)hauteurImage));
-            int nbr_new_hauteur = largeurImage - new_largeur;
-            int nbr_new_largeur = hauteurImage - new_hauteur;
+            int nbr_new_hauteur = hauteurImage - new_hauteur;
+            int nbr_new_largeur = largeurImage - new_largeur;
             bool[] largeur = new bool[largeurImage];
             bool[] hauteur = new bool[hauteurImage];
             Random random = new Random();
@@ -404,13 +404,13 @@ namespace TD3
             Pixel[,] newimage = new Pixel[new_hauteur, new_largeur];
             int indice_hauteur = 0;
             int indice_largeur = 0;
-            for(int l = 0; l < pixels.GetLength(0); l++)
+            for (int l = 0; l < pixels.GetLength(0); l++)
             {
-                if(hauteur[l] == true)
+                if (hauteur[l] == true)
                 {
-                    for(int c = 0; c < pixels.GetLength(1); c++)
+                    for (int c = 0; c < pixels.GetLength(1); c++)
                     {
-                        if(largeur[c] == true)
+                        if (largeur[c] == true)
                         {
                             newimage[indice_hauteur, indice_largeur] = pixels[l, c];
                             indice_largeur++;

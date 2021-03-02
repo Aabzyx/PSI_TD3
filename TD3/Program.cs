@@ -48,7 +48,7 @@ namespace TD3
         {
             Console.WriteLine("Veuillez saisir un coefficient de retrecissement compris entre 0 et 1 exclut");
             double coef = -1;
-            while(coef <= 0 || coef >= 1)
+            while (coef <= 0 || coef >= 1)
             {
                 coef = Convert.ToDouble(Console.ReadLine());
             }
@@ -62,7 +62,7 @@ namespace TD3
             //NuancesDeGris("./coco.bmp", "./Gris.bmp");
             //NoirEtBlanc("./coco.bmp", "./Binaire.bmp");
             //Agrandir("./coco.bmp","./zoom.bmp");
-            Retrecir("./coco.bmp", "./zoom.bmp");
+            Retrecir("./coco.bmp", "./petit.bmp");
 
             Console.WriteLine("\nTerminé !");
             Console.ReadKey(true);
