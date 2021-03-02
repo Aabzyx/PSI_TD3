@@ -70,7 +70,7 @@ namespace TD3
         {
             //NuancesDeGris("./coco.bmp", "./Gris.bmp");
             //NoirEtBlanc("./coco.bmp", "./Binaire.bmp");
-            //Agrandir("./Test001.bmp","./zoom.bmp");
+            Agrandir("./coco.bmp","./zoom.bmp");
             //Retrecir("./coco.bmp", "./zoom.bmp");
             //Rotate("./coco.bmp", "./GROS270.bmp");
 

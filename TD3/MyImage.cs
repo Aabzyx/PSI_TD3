@@ -309,8 +309,8 @@ namespace TD3
         {
             int new_largeur = Convert.ToInt32(Math.Round(coef * (double)largeurImage));
             int new_hauteur = Convert.ToInt32(Math.Round(coef * (double)hauteurImage));
-            int nbr_new_hauteur = new_largeur - largeurImage;
-            int nbr_new_largeur = new_hauteur - hauteurImage;
+            int nbr_new_hauteur = new_hauteur - hauteurImage;
+            int nbr_new_largeur = new_largeur - largeurImage;
             int[] largeur = new int[largeurImage];
             int[] hauteur = new int[hauteurImage];
             Random random = new Random();
@@ -344,11 +344,11 @@ namespace TD3
                 {
                     hauteur[i] = Convert.ToInt32(Math.Floor(coef)) - 1;
                 }
-                int case_en_plus = new_hauteur - Convert.ToInt32(Math.Floor(coef * (double)hauteurImage));
+                int case_en_plus = new_hauteur - Convert.ToInt32(Math.Floor(coef) * (double)hauteurImage);
                 while (compteur != case_en_plus)
                 {
                     int index = random.Next(0, hauteur.Length - 1);
-                    if (hauteur[index] == Math.Floor(coef) - 1)
+                    if (hauteur[index] == Convert.ToInt32(Math.Floor(coef)) - 1)
                     {
                         hauteur[index]++;
                         compteur++;
@@ -359,11 +359,11 @@ namespace TD3
                 {
                     largeur[i] = Convert.ToInt32(Math.Floor(coef)) - 1;
                 }
-                case_en_plus = new_largeur - Convert.ToInt32(Math.Floor(coef * (double)largeurImage));
+                case_en_plus = new_largeur - Convert.ToInt32(Math.Floor(coef) * (double)largeurImage);
                 while (compteur != case_en_plus)
                 {
                     int index = random.Next(0, largeur.Length - 1);
-                    if (largeur[index] == Math.Floor(coef) - 1)
+                    if (largeur[index] == Convert.ToInt32(Math.Floor(coef)) - 1)
                     {
                         largeur[index]++;
                         compteur++;
