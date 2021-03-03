@@ -66,13 +66,24 @@ namespace TD3
             image.From_Image_To_File(sortie);
         }
 
+        static void Rotate(string entree, string sortie)
+        {
+            Console.Write("Veuillez saisir un angle de rotation : ");
+            double angle = Convert.ToDouble(Console.ReadLine());
+            angle = Math.PI * angle/180;
+            MyImage image = new MyImage(entree);
+            image.Rotate(angle);
+            image.From_Image_To_File(sortie);
+        }
+
         static void Main(string[] args)
         {
             //NuancesDeGris("./coco.bmp", "./Gris.bmp");
             //NoirEtBlanc("./coco.bmp", "./Binaire.bmp");
             //Agrandir("./coco.bmp","./zoom.bmp");
             //Retrecir("./coco.bmp", "./zoom.bmp");
-            Rotate("./coco.bmp", "./GROS270.bmp");
+            //RotateRemarquable("./coco.bmp", "./GROS270.bmp");
+            Rotate("./coco.bmp", "./rotateRandom.bmp");
 
             Console.WriteLine("\nTerminé !");
             Console.ReadKey(true);

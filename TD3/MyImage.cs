@@ -287,9 +287,95 @@ namespace TD3
             else Console.WriteLine("pafétrodur");
         }
 
-        public void Rotate(int angle)
+        public double[] CarthesiennesEnPolaire(int x, int y)
         {
+            double[] returned = new double[2];
+            returned[0] = Math.Sqrt(x*x + y*y);
+            returned[1] = Math.Atan2(y, x);
+            return returned;
+        }
 
+        public int[] PolaireEnCarthesiennes(double r, double theta)
+        {
+            int[] returned = new int[2];
+            returned[0] = (int)(r * Math.Cos(theta));
+            returned[1] = (int)(r * Math.Sin(theta));
+            return returned;
+        }
+
+        public void Rotate(double angle)
+        {
+            double[][] extremites = new double[4][];
+            int[] centreImageDeBase = new int[2] { hauteurImage / 2, largeurImage / 2 };
+            extremites[0] = CarthesiennesEnPolaire((-hauteurImage / 2), (-largeurImage / 2));
+            extremites[1] = CarthesiennesEnPolaire((-hauteurImage / 2), (largeurImage / 2));
+            extremites[2] = CarthesiennesEnPolaire((hauteurImage / 2), (-largeurImage / 2));
+            extremites[3] = CarthesiennesEnPolaire((hauteurImage / 2), (largeurImage / 2));
+            foreach (double[] table in extremites)
+            {
+                table[1] += angle;
+            }
+
+            int[][] extremitesImageTournee = new int[4][];
+            extremitesImageTournee[0] = PolaireEnCarthesiennes(extremites[0][0], extremites[0][1]);
+            extremitesImageTournee[1] = PolaireEnCarthesiennes(extremites[1][0], extremites[1][1]);
+            extremitesImageTournee[2] = PolaireEnCarthesiennes(extremites[2][0], extremites[2][1]);
+            extremitesImageTournee[3] = PolaireEnCarthesiennes(extremites[3][0], extremites[3][1]);
+
+            int maxX = 0;
+            int minX = 0;
+            int maxY = 0;
+            int minY = 0;
+            foreach (int[] element in extremitesImageTournee)
+            {
+                maxX = Math.Max(maxX, element[0]);
+                minX = Math.Min(minX, element[0]);
+                maxY = Math.Max(maxY, element[1]);
+                minY = Math.Min(minY, element[1]);
+            }
+            hauteurImage = maxX - minX;
+            largeurImage = maxY - minY;
+
+            Pixel[,] nouvelleImage = new Pixel[hauteurImage, largeurImage];
+            int[] centreImageTournee = new int[2] { hauteurImage / 2, largeurImage / 2 };
+            for (int x = 0; x < hauteurImage; x++)
+            {
+                for (int y = 0; y < largeurImage; y++)
+                {
+                    double[] pixelEtudie = CarthesiennesEnPolaire(x - centreImageTournee[0], y - centreImageTournee[1]);
+                    int[] pixelCorrespondant = PolaireEnCarthesiennes(pixelEtudie[0], pixelEtudie[1] - angle);
+                    pixelCorrespondant[0] += centreImageDeBase[0];
+                    pixelCorrespondant[1] += centreImageDeBase[1];
+
+                    Pixel nouveauPixel = new Pixel(0, 128, 0);
+                    if (pixelCorrespondant[0] >= 0 && pixelCorrespondant[0] < pixels.GetLength(0) && pixelCorrespondant[1] >= 0 && pixelCorrespondant[1] < pixels.GetLength(1))
+                    {
+                        nouveauPixel = pixels[pixelCorrespondant[0], pixelCorrespondant[1]];
+                    }
+                    nouvelleImage[x, y] = nouveauPixel;
+                }
+            }
+
+            pixels = nouvelleImage;
+
+            int valeursInutiles = largeurImage % 4;
+            int ajout = 0;
+            if (valeursInutiles != 0)
+            {
+                if (valeursInutiles == 3)
+                {
+                    ajout = 1;
+                }
+                if (valeursInutiles == 2)
+                {
+                    ajout = 2;
+                }
+                if (valeursInutiles == 1)
+                {
+                    ajout = 3;
+                }
+            }
+            tailleDuFichier = (largeurImage * hauteurImage * 3) + (ajout * hauteurImage) + tailleOffset;
         }
 
         public void Miroir()
