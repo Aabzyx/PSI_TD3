@@ -240,15 +240,15 @@ namespace TD3
             }
             return returned;
         }
-        
+
         public void RotateRemarquable(int angle)
         {
-            if(angle == 180)
+            if (angle == 180)
             {
                 Pixel[,] nouvelleMatrice = new Pixel[hauteurImage, largeurImage];
-                for(int x = 0; x < hauteurImage; x++)
+                for (int x = 0; x < hauteurImage; x++)
                 {
-                    for(int y = 0; y < largeurImage; y++)
+                    for (int y = 0; y < largeurImage; y++)
                     {
                         nouvelleMatrice[x, y] = pixels[hauteurImage - 1 - x, largeurImage - 1 - y];
                     }
@@ -256,10 +256,10 @@ namespace TD3
                 pixels = nouvelleMatrice;
 
             }
-            else if(angle == 270 || angle == 90)
+            else if (angle == 270 || angle == 90)
             {
                 Pixel[,] nouvelleMatrice = new Pixel[largeurImage, hauteurImage];
-                if(angle == 90)
+                if (angle == 90)
                 {
                     for (int x = 0; x < largeurImage; x++)
                     {
@@ -380,23 +380,23 @@ namespace TD3
 
         public void Miroir()
         {
-            Pixel[,] newImage = new Pixel[largeurImage,  hauteurImage];
-            for(int l = 0; l < pixels.GetLength(0);l++)
+            Pixel[,] newImage = new Pixel[largeurImage, hauteurImage];
+            for (int l = 0; l < pixels.GetLength(0); l++)
             {
-                for(int c = 0; c < pixels.GetLength(1);c++)
+                for (int c = 0; c < pixels.GetLength(1); c++)
                 {
-                    newImage[l,  c] = pixels[l, largeurImage - c - 1];
+                    newImage[l, c] = pixels[l, largeurImage - c - 1];
                 }
             }
-            pixels =  newImage;
+            pixels = newImage;
         }
 
         public void Agrandir(double coef)
         {
             int new_largeur = Convert.ToInt32(Math.Round(coef * (double)largeurImage));
             int new_hauteur = Convert.ToInt32(Math.Round(coef * (double)hauteurImage));
-            int nbr_new_hauteur = new_largeur - largeurImage;
-            int nbr_new_largeur = new_hauteur - hauteurImage;
+            int nbr_new_hauteur = new_hauteur - hauteurImage;
+            int nbr_new_largeur = new_largeur - largeurImage;
             int[] largeur = new int[largeurImage];
             int[] hauteur = new int[hauteurImage];
             Random random = new Random();
@@ -430,11 +430,11 @@ namespace TD3
                 {
                     hauteur[i] = Convert.ToInt32(Math.Floor(coef)) - 1;
                 }
-                int case_en_plus = new_hauteur - Convert.ToInt32(Math.Floor(coef * (double)hauteurImage));
+                int case_en_plus = new_hauteur - Convert.ToInt32(Math.Floor(coef) * (double)hauteurImage);
                 while (compteur != case_en_plus)
                 {
                     int index = random.Next(0, hauteur.Length - 1);
-                    if (hauteur[index] == Math.Floor(coef) - 1)
+                    if (hauteur[index] == Convert.ToInt32(Math.Floor(coef)) - 1)
                     {
                         hauteur[index]++;
                         compteur++;
@@ -445,11 +445,11 @@ namespace TD3
                 {
                     largeur[i] = Convert.ToInt32(Math.Floor(coef)) - 1;
                 }
-                case_en_plus = new_largeur - Convert.ToInt32(Math.Floor(coef * (double)largeurImage));
+                case_en_plus = new_largeur - Convert.ToInt32(Math.Floor(coef) * (double)largeurImage);
                 while (compteur != case_en_plus)
                 {
                     int index = random.Next(0, largeur.Length - 1);
-                    if (largeur[index] == Math.Floor(coef) - 1)
+                    if (largeur[index] == Convert.ToInt32(Math.Floor(coef)) - 1)
                     {
                         largeur[index]++;
                         compteur++;
@@ -496,11 +496,30 @@ namespace TD3
                         indice_largeur++;
                     }
                 }
-                indice_hauteur += hauteur[l];
+                indice_hauteur += hauteur[l] + 1;
                 indice_largeur = 0;
             }
             largeurImage = new_largeur;
             hauteurImage = new_hauteur;
+            int valeursInutiles = largeurImage % 4;
+            int ajout = 0;
+            if (valeursInutiles != 0)
+            {
+                if (valeursInutiles == 3)
+                {
+                    cpt++;
+                }
+                if (valeursInutiles == 2)
+                {
+                    cpt += 2;
+                }
+                if (valeursInutiles == 1)
+                {
+                    cpt += 3;
+                }
+            }
+            tailleDuFichier = new_largeur * new_hauteur * 3 + ajout*new_hauteur + tailleOffset;
+            largeurImage = new_largeur + ajout;
             pixels = newimage;
         }
 
@@ -552,6 +571,7 @@ namespace TD3
             }
             largeurImage = new_largeur;
             hauteurImage = new_hauteur;
+            tailleDuFichier = new_hauteur * new_largeur * 3 + tailleOffset;
             pixels = newimage;
         }
 
@@ -562,9 +582,9 @@ namespace TD3
         /// </summary>
         public void NuancesDeGris()
         {
-            for(int x = 0; x < pixels.GetLength(0); x++)
+            for (int x = 0; x < pixels.GetLength(0); x++)
             {
-                for(int y = 0; y < pixels.GetLength(1); y++)
+                for (int y = 0; y < pixels.GetLength(1); y++)
                 {
                     int rvbGRIS = (pixels[x, y].Red + pixels[x, y].Green + pixels[x, y].Blue) / 3;
                     Pixel newPixel = new Pixel(rvbGRIS, rvbGRIS, rvbGRIS);
@@ -585,7 +605,7 @@ namespace TD3
                 for (int y = 0; y < pixels.GetLength(1); y++)
                 {
                     int moyenne = (pixels[x, y].Red + pixels[x, y].Green + pixels[x, y].Blue) / 3;
-                    if(moyenne < 128)
+                    if (moyenne < 128)
                     {
                         Pixel newPixel = new Pixel(0, 0, 0);
                         pixels[x, y] = newPixel;
