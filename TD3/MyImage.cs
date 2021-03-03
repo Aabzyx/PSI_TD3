@@ -422,13 +422,11 @@ namespace TD3
         {
             int new_largeur = Convert.ToInt32(Math.Round(coef * (double)largeurImage));
             int new_hauteur = Convert.ToInt32(Math.Round(coef * (double)hauteurImage));
-            int nbr_new_hauteur = hauteurImage - new_hauteur;
-            int nbr_new_largeur = largeurImage - new_largeur;
             bool[] largeur = new bool[largeurImage];
             bool[] hauteur = new bool[hauteurImage];
             Random random = new Random();
             int compteur = 0;
-            while (compteur != nbr_new_hauteur)
+            while (compteur != new_hauteur)
             {
                 int index = random.Next(0, hauteur.Length);
                 if (hauteur[index] == false)
@@ -438,7 +436,7 @@ namespace TD3
                 }
             }
             compteur = 0;
-            while (compteur != nbr_new_largeur)
+            while (compteur != new_largeur)
             {
                 int index = random.Next(0, largeur.Length);
                 if (largeur[index] == false)

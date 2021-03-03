@@ -71,8 +71,8 @@ namespace TD3
             //NuancesDeGris("./coco.bmp", "./Gris.bmp");
             //NoirEtBlanc("./coco.bmp", "./Binaire.bmp");
             //Agrandir("./coco.bmp","./zoom.bmp");
-            Retrecir("./coco.bmp", "./petit.bmp");
-            RotateRemarquable("./coco.bmp", "./GROS270.bmp");
+            //Retrecir("./coco.bmp", "./zoom.bmp");
+            Rotate("./coco.bmp", "./GROS270.bmp");
 
             Console.WriteLine("\nTerminé !");
             Console.ReadKey(true);
